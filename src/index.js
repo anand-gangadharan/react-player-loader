@@ -88,6 +88,12 @@ class ReactPlayerLoader extends React.Component {
         // Store a player reference on the component.
         this.player = ref;
 
+        if (!this.props.videoId && this.props.src) {
+          this.player.src({
+            src: this.props.src
+          });
+        }
+
         // Null out the player reference when the player is disposed from
         // outside the component.
         if (type === 'in-page') {
@@ -303,7 +309,12 @@ class ReactPlayerLoader extends React.Component {
       if (i > -1) {
         this.player.playlist.currentItem(i);
       }
+    } else if (!this.props.playlistVideoId && this.props.src) {
+      this.player.src({
+        src: this.props.src
+      });
     }
+
   }
 
   /**

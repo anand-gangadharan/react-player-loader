@@ -19,6 +19,7 @@ This library has [the same support characteristics as the Brightcove Player Load
 
 - [Installation](#installation)
 - [Standard Usage with JSX](#standard-usage-with-jsx)
+- [Setting a source directly to Brightcove player](#setting-a-source-directly-to-brightcove-player)
 - [Props](#props)
   - [`attrs`](#attrs)
   - [`baseUrl`](#baseurl)
@@ -69,6 +70,36 @@ const onSuccess = function(success) {
 
 reactPlayerLoader = ReactDOM.render(
   <ReactPlayerLoader accountId='1234678' onSuccess={onSuccess}/>,
+  document.getElementById('fixture')
+);
+```
+
+## Setting a source directly to Brightcove player
+
+Here is an example where an hls url is directly set to the player and content residing
+outside brightcove video cloud can be rendered.
+Note that a videoId from Brightcove will always take precedence over a source setting.
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactPlayerLoader from '@brightcove/react-player-loader';
+
+let reactPlayerLoader;
+const onSuccess = function(success) {
+
+  // The player object or iframe element (depending on embed type) can be
+  // accessed in two ways.
+  // 
+  // From the success object passed to the `onSuccess` callback:
+  console.log(success.ref);
+
+  // As a property of the component instance:
+  console.log(reactPlayerLoader.player);
+};
+
+reactPlayerLoader = ReactDOM.render(
+  <ReactPlayerLoader accountId='1234678' src='https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8' onSuccess={onSuccess}/>,
   document.getElementById('fixture')
 );
 ```
